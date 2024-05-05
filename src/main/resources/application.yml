@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/auth_service
+    username: root
+    password: LevshaNumberOne1
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: mysql
+    open-in-view: false
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: d462fb12f03ed6d0a382
+            client-secret: 910fc30f47f37433e34aa0bb2240b43d4b3686d9
+  mail:
+    host: connect.smtp.bz
+    port: 587
+    username: aza0000167@gmail.com
+    password: pymv6QC8VrlB
+    properties:
+      mail:
+        from: support@dertix.net
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: false
+application:
+  security:
+    oauth2:
+      discord:
+        client-id: 1194987139860017163
+        client-secret: EubgOnWjYksaWWPDmAnbdWXcOnblevAq
+        token-url: https://discord.com/api/v10/oauth2/token
+        register-redirect-url: http://127.0.0.1:5500/discordRegisterPage.html
+        authentication-redirect-url: http://127.0.0.1:5500/discordAuthPage.html
+        verification-redirect-url: http://127.0.0.1:5500/discordAddVerificatonPage.html
+        user-url: https://discord.com/api/v10/users/@me
+    jwt:
+      secret-key: 5eekxbfUrc9marV/33k0yzgFxcuIHwIJyQ/IUd7HOMA=
+      access-token:
+        expiration: 86400000
+      refresh-token:
+        expiration: 604800000 # 7 days
+        remember-me-expiration: 6048000000
