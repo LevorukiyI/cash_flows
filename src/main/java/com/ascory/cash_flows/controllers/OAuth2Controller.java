@@ -4,12 +4,9 @@ import com.ascory.cash_flows.requests.OAuth2Request;
 import com.ascory.cash_flows.responses.AuthenticationResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
 
 @RestController("auth")
 interface OAuth2Controller {
@@ -23,4 +20,7 @@ interface OAuth2Controller {
     @PostMapping("/add-verification")
     ResponseEntity<?> addVerification(@RequestBody OAuth2Request oAuth2Request,
                                       Authentication principal);
+    @PostMapping("/delete-verification")
+    ResponseEntity<?> deleteVerification(
+            Authentication authentication);
 }

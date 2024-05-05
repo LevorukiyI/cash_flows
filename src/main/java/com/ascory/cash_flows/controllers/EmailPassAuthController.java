@@ -7,18 +7,13 @@ import com.ascory.cash_flows.requests.VerifyEmailPassTokenRequest;
 import com.ascory.cash_flows.responses.AuthenticationResponse;
 import com.ascory.cash_flows.services.EmailPassAuthService;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/auth/email-pass")
