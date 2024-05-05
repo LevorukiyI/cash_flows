@@ -1,4 +1,4 @@
-package com.ascory.authservice.exceptions;
+package com.ascory.cash_flows.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

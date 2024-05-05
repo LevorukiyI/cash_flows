@@ -1,7 +1,7 @@
-package com.ascory.authservice.services;
+package com.ascory.cash_flows.services;
 
-import com.ascory.authservice.models.OAuth2ServiceName;
-import com.ascory.authservice.models.User;
+import com.ascory.cash_flows.models.OAuth2ServiceName;
+import com.ascory.cash_flows.models.User;
 
 public interface OAuth2ServiceStrategy {
     String getAccessTokenFromRegisterService(String code);

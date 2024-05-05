@@ -1,7 +1,7 @@
-package com.ascory.authservice.services;
+package com.ascory.cash_flows.services;
 
-import com.ascory.authservice.models.JwtTokenType;
-import com.ascory.authservice.models.User;
+import com.ascory.cash_flows.models.JwtTokenType;
+import com.ascory.cash_flows.models.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;

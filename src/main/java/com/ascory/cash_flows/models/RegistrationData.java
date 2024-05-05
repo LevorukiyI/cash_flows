@@ -1,4 +1,4 @@
-package com.ascory.authservice.models;
+package com.ascory.cash_flows.models;
 
 public class RegistrationData {
 }

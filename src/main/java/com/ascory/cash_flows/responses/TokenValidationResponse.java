@@ -1,4 +1,4 @@
-package com.ascory.authservice.responses;
+package com.ascory.cash_flows.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

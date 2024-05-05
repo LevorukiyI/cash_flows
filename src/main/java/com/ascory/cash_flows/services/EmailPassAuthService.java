@@ -1,12 +1,12 @@
-package com.ascory.authservice.services;
+package com.ascory.cash_flows.services;
 
-import com.ascory.authservice.exceptions.UserNotFoundException;
-import com.ascory.authservice.models.EmailPassVerificationTokenEntity;
-import com.ascory.authservice.models.User;
-import com.ascory.authservice.repositories.UserRepository;
-import com.ascory.authservice.requests.EmailPassAuthenticateRequest;
-import com.ascory.authservice.requests.EmailPassRegisterRequestEntity;
-import com.ascory.authservice.responses.AuthenticationResponse;
+import com.ascory.cash_flows.exceptions.UserNotFoundException;
+import com.ascory.cash_flows.models.EmailPassVerificationTokenEntity;
+import com.ascory.cash_flows.models.User;
+import com.ascory.cash_flows.repositories.UserRepository;
+import com.ascory.cash_flows.requests.EmailPassAuthenticateRequest;
+import com.ascory.cash_flows.requests.EmailPassRegisterRequestEntity;
+import com.ascory.cash_flows.responses.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,7 +24,7 @@ public class EmailPassAuthService{
     private final UserRepository userRepository;
     private final AuthenticationHandler authenticationHandler;
     private final AuthenticationManager authenticationManager;
-    private final RegistrationValidator registrationValidator;
+    private final EmailPassValidator emailPassValidator;
     private final EmailVerificationTokenService emailVerificationTokenService;
     private final PasswordEncoder passwordEncoder;
 
@@ -46,11 +46,11 @@ public class EmailPassAuthService{
 
     public void createEmailVerificationToken(
             EmailPassRegisterRequestEntity emailPassRegisterRequestEntity,
-            Principal principal) {//add principal as null, if you creating new user
-        registrationValidator.validateEmailPassRegisterRequest(emailPassRegisterRequestEntity);
+            Authentication authentication) {//add principal as null, if you're creating new user
+        emailPassValidator.validateEmailPassRegisterRequest(emailPassRegisterRequestEntity);
         Long userId = null;
-        if(principal!=null){
-            userId = Long.valueOf(principal.getName());
+        if(authentication!=null){
+            userId = Long.valueOf(authentication.getName());
         }
         EmailPassVerificationTokenEntity emailVerificationToken =
                 emailVerificationTokenService.createToken(emailPassRegisterRequestEntity, userId);
@@ -63,7 +63,7 @@ public class EmailPassAuthService{
                 emailVerificationTokenService.getEmailPassVerificationTokenEntity(token);
         EmailPassRegisterRequestEntity registerRequestEntity = verificationTokenEntity.getRegisterRequestEntity();
         User user;
-        if(verificationTokenEntity.getPrincipal() == null){
+        if(verificationTokenEntity.getUserId() == null){
             user = this.registerUserByToken(registerRequestEntity);
         }
         else{
@@ -79,7 +79,7 @@ public class EmailPassAuthService{
             EmailPassVerificationTokenEntity verificationTokenEntity,
             EmailPassRegisterRequestEntity registerRequestEntity){
 
-        User user = userRepository.getUserById(verificationTokenEntity.getPrincipal());
+        User user = userRepository.getUserById(verificationTokenEntity.getUserId());
         this.setEmailPassToUser(registerRequestEntity, user);
         userRepository.save(user);
         return user;

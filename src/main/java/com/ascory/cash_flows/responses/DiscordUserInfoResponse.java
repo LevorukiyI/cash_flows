@@ -1,4 +1,4 @@
-package com.ascory.authservice.responses;
+package com.ascory.cash_flows.responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

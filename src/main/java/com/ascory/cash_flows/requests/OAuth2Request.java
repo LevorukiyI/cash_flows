@@ -1,4 +1,4 @@
-package com.ascory.authservice.requests;
+package com.ascory.cash_flows.requests;
 
 import lombok.*;
 

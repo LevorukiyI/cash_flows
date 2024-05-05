@@ -1,6 +1,6 @@
-package com.ascory.authservice.models;
+package com.ascory.cash_flows.models;
 
-import com.ascory.authservice.requests.EmailPassRegisterRequestEntity;
+import com.ascory.cash_flows.requests.EmailPassRegisterRequestEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,11 +15,15 @@ import lombok.NoArgsConstructor;
 @Table(name = "email_pass_verification_token_entity")
 public class EmailPassVerificationTokenEntity {
     @Id
+    private String email;
+
+    @Column(unique = true)
     private String token;
 
     @OneToOne
     @JoinColumn(name = "register_request_id")
     private EmailPassRegisterRequestEntity registerRequestEntity;
 
-    private Long principal;
+    @Column
+    private Long userId;
 }

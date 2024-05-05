@@ -1,8 +1,9 @@
-package com.ascory.authservice.controllers;
+package com.ascory.cash_flows.controllers;
 
-import com.ascory.authservice.requests.OAuth2Request;
-import com.ascory.authservice.responses.AuthenticationResponse;
+import com.ascory.cash_flows.requests.OAuth2Request;
+import com.ascory.cash_flows.responses.AuthenticationResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,5 +22,5 @@ interface OAuth2Controller {
     //this method adds new OAuth2 verification to the account
     @PostMapping("/add-verification")
     ResponseEntity<?> addVerification(@RequestBody OAuth2Request oAuth2Request,
-                                      @AuthenticationPrincipal Principal principal);
+                                      Authentication principal);
 }

@@ -1,9 +1,9 @@
-package com.ascory.authservice.services;
+package com.ascory.cash_flows.services;
 
-import com.ascory.authservice.models.OAuth2ServiceName;
-import com.ascory.authservice.models.RegistrationData;
-import com.ascory.authservice.models.User;
-import com.ascory.authservice.requests.EmailPassRegisterRequestEntity;
+import com.ascory.cash_flows.models.OAuth2ServiceName;
+import com.ascory.cash_flows.models.RegistrationData;
+import com.ascory.cash_flows.models.User;
+import com.ascory.cash_flows.requests.EmailPassRegisterRequestEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

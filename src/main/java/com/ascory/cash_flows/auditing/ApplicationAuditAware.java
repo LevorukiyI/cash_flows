@@ -1,6 +1,6 @@
-package com.ascory.authservice.auditing;
+package com.ascory.cash_flows.auditing;
 
-import com.ascory.authservice.models.User;
+import com.ascory.cash_flows.models.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

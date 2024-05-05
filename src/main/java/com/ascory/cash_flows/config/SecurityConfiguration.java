@@ -1,4 +1,4 @@
-package com.ascory.authservice.config;
+package com.ascory.cash_flows.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

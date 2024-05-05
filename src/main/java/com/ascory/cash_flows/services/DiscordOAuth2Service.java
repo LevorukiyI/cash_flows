@@ -1,13 +1,13 @@
-package com.ascory.authservice.services;
+package com.ascory.cash_flows.services;
 
-import com.ascory.authservice.exceptions.DiscordAuthenticationException;
-import com.ascory.authservice.exceptions.InvalidAccessTokenException;
-import com.ascory.authservice.exceptions.UserNotFoundException;
-import com.ascory.authservice.models.OAuth2ServiceName;
-import com.ascory.authservice.models.User;
-import com.ascory.authservice.repositories.UserRepository;
-import com.ascory.authservice.responses.DiscordAccessTokenResponse;
-import com.ascory.authservice.responses.DiscordUserInfoResponse;
+import com.ascory.cash_flows.exceptions.DiscordAuthenticationException;
+import com.ascory.cash_flows.exceptions.InvalidAccessTokenException;
+import com.ascory.cash_flows.exceptions.UserNotFoundException;
+import com.ascory.cash_flows.models.OAuth2ServiceName;
+import com.ascory.cash_flows.models.User;
+import com.ascory.cash_flows.repositories.UserRepository;
+import com.ascory.cash_flows.responses.DiscordAccessTokenResponse;
+import com.ascory.cash_flows.responses.DiscordUserInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;

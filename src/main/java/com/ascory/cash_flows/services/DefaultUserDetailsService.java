@@ -1,4 +1,4 @@
-package com.ascory.authservice.services;
+package com.ascory.cash_flows.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

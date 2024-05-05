@@ -1,4 +1,4 @@
-package com.ascory.authservice.exceptions;
+package com.ascory.cash_flows.exceptions;
 
 public class DiscordAuthenticationException extends RuntimeException{
     private static final String DEFAULT_MESSAGE = "Discord authentication failed.";

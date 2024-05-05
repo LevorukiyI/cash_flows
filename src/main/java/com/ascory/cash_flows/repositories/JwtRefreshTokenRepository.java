@@ -1,7 +1,7 @@
-package com.ascory.authservice.repositories;
+package com.ascory.cash_flows.repositories;
 
-import com.ascory.authservice.models.JwtRefreshToken;
-import com.ascory.authservice.models.User;
+import com.ascory.cash_flows.models.JwtRefreshToken;
+import com.ascory.cash_flows.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

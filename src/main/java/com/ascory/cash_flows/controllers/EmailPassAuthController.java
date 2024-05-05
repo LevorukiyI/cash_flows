@@ -1,13 +1,17 @@
-package com.ascory.authservice.controllers;
+package com.ascory.cash_flows.controllers;
 
 
-import com.ascory.authservice.requests.EmailPassAuthenticateRequest;
-import com.ascory.authservice.requests.EmailPassRegisterRequestEntity;
-import com.ascory.authservice.requests.VerifyEmailPassTokenRequest;
-import com.ascory.authservice.responses.AuthenticationResponse;
-import com.ascory.authservice.services.EmailPassAuthService;
+import com.ascory.cash_flows.requests.EmailPassAuthenticateRequest;
+import com.ascory.cash_flows.requests.EmailPassRegisterRequestEntity;
+import com.ascory.cash_flows.requests.VerifyEmailPassTokenRequest;
+import com.ascory.cash_flows.responses.AuthenticationResponse;
+import com.ascory.cash_flows.services.EmailPassAuthService;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,8 +43,11 @@ class EmailPassAuthController{
     @PostMapping("/get-verification-token")
     public ResponseEntity<?> getAddVerificationTokenOnEmail(
             @RequestBody EmailPassRegisterRequestEntity emailPassRegisterRequestEntity,
-            @AuthenticationPrincipal Principal principal) {
-        emailPassAuthService.createEmailVerificationToken(emailPassRegisterRequestEntity, principal);
+            Authentication authentication) {
+        if (authentication == null) {
+            throw new AccessDeniedException("Access is denied. User is unauthenticated or did not provide a JWT token.");
+        }
+        emailPassAuthService.createEmailVerificationToken(emailPassRegisterRequestEntity, authentication);
         return ResponseEntity.ok().build();
     }
 

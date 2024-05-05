@@ -1,6 +1,6 @@
-package com.ascory.authservice.repositories;
+package com.ascory.cash_flows.repositories;
 
-import com.ascory.authservice.models.EmailPassVerificationTokenEntity;
+import com.ascory.cash_flows.models.EmailPassVerificationTokenEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

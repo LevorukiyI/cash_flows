@@ -1,16 +1,15 @@
-package com.ascory.authservice.config;
+package com.ascory.cash_flows.config;
 
-import com.ascory.authservice.models.JwtTokenType;
-import com.ascory.authservice.models.User;
-import com.ascory.authservice.services.JwtService;
-import com.ascory.authservice.services.UserService;
+import com.ascory.cash_flows.models.JwtTokenType;
+import com.ascory.cash_flows.models.User;
+import com.ascory.cash_flows.services.JwtService;
+import com.ascory.cash_flows.services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Objects;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
@@ -38,14 +37,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         String jwtAccessToken = jwtService.extractAccessToken(request);
-        System.out.println(jwtAccessToken);
         if(jwtAccessToken == null){
             filterChain.doFilter(request, response);
             return;
         }
 
         final String username = jwtService.extractSubject(jwtAccessToken);
-        System.out.println(username);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             User user = this.userService.loadUserByUsername(username);
             if (jwtService.isTokenValid(jwtAccessToken, user, JwtTokenType.ACCESS)) {
@@ -57,7 +54,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
-                System.out.println(authToken.getPrincipal());
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }

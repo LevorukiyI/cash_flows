@@ -1,10 +1,10 @@
-package com.ascory.authservice.services;
+package com.ascory.cash_flows.services;
 
-import com.ascory.authservice.models.EmailPassVerificationTokenEntity;
-import com.ascory.authservice.repositories.EmailPassRegisterRequestRepository;
-import com.ascory.authservice.repositories.EmailPassVerificationTokenRepository;
-import com.ascory.authservice.repositories.UserRepository;
-import com.ascory.authservice.requests.EmailPassRegisterRequestEntity;
+import com.ascory.cash_flows.models.EmailPassVerificationTokenEntity;
+import com.ascory.cash_flows.repositories.EmailPassRegisterRequestRepository;
+import com.ascory.cash_flows.repositories.EmailPassVerificationTokenRepository;
+import com.ascory.cash_flows.repositories.UserRepository;
+import com.ascory.cash_flows.requests.EmailPassRegisterRequestEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,20 +17,21 @@ public class EmailVerificationTokenService {
     private final EmailSender emailSender;
     private final EmailPassVerificationTokenRepository verificationTokenRepository;
     private final EmailPassRegisterRequestRepository registerRequestRepository;
-    private final UserRepository userRepository;
-    private final UserService userService;
 
     public EmailPassVerificationTokenEntity createToken(
             EmailPassRegisterRequestEntity registerRequestEntity,
-            Long principal) {
+            Long userId) {
         registerRequestRepository.save(registerRequestEntity);
-        EmailPassVerificationTokenEntity emailVerificationToken = EmailPassVerificationTokenEntity.builder()
-                .token(generateTokenString())
-                .registerRequestEntity(registerRequestEntity)
-                .principal(principal)
-                .build();
-        verificationTokenRepository.save(emailVerificationToken);
-        return emailVerificationToken;
+
+        EmailPassVerificationTokenEntity emailPassVerificationToken =
+                EmailPassVerificationTokenEntity.builder()
+                        .email(registerRequestEntity.getEmail())
+                        .token(generateTokenString())
+                        .registerRequestEntity(registerRequestEntity)
+                        .userId(userId)
+                        .build();
+        verificationTokenRepository.save(emailPassVerificationToken);
+        return emailPassVerificationToken;
     }
 
     public EmailPassVerificationTokenEntity getEmailPassVerificationTokenEntity(String token) {
@@ -54,7 +55,7 @@ public class EmailVerificationTokenService {
     public void sendVerificationEmail(String email, String token) {
         String subject = "Подтверждение электронной почты";
         //#TODO не забыть поменять ссылку
-        String body = "Для подтверждения электронной почты перейдите по ссылке: http://127.0.0.1:5500/emailPassRegisterPage.html?token=" + token;
+        String body = "Для подтверждения электронной почты перейдите по ссылке: http://127.0.0.1:5500/authenticationPages/emailVerifyTokenPage.html?token=" + token;
         emailSender.sendEmail(email, subject, body);
     }
 }

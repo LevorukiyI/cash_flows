@@ -1,4 +1,4 @@
-package com.ascory.authservice.services;
+package com.ascory.cash_flows.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;

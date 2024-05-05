@@ -1,9 +1,9 @@
-package com.ascory.authservice.services;
+package com.ascory.cash_flows.services;
 
-import com.ascory.authservice.models.JwtRefreshToken;
-import com.ascory.authservice.models.User;
-import com.ascory.authservice.repositories.JwtRefreshTokenRepository;
-import com.ascory.authservice.responses.AuthenticationResponse;
+import com.ascory.cash_flows.models.JwtRefreshToken;
+import com.ascory.cash_flows.models.User;
+import com.ascory.cash_flows.repositories.JwtRefreshTokenRepository;
+import com.ascory.cash_flows.responses.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

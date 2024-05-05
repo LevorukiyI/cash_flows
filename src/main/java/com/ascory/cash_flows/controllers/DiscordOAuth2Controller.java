@@ -1,11 +1,13 @@
-package com.ascory.authservice.controllers;
+package com.ascory.cash_flows.controllers;
 
-import com.ascory.authservice.requests.OAuth2Request;
-import com.ascory.authservice.responses.AuthenticationResponse;
-import com.ascory.authservice.services.DiscordOAuth2Service;
-import com.ascory.authservice.services.OAuth2ServiceContext;
+import com.ascory.cash_flows.requests.OAuth2Request;
+import com.ascory.cash_flows.responses.AuthenticationResponse;
+import com.ascory.cash_flows.services.DiscordOAuth2Service;
+import com.ascory.cash_flows.services.OAuth2ServiceContext;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,9 +40,9 @@ public class DiscordOAuth2Controller implements OAuth2Controller{
     @Override
     public ResponseEntity<?> addVerification(
             @RequestBody OAuth2Request oAuth2Request,
-            @AuthenticationPrincipal Principal principal) {
+            Authentication authentication) {
         oAuth2ServiceContext.setOAuth2ServiceStrategy(discordOAuth2Service);
-        oAuth2ServiceContext.addVerification(oAuth2Request.getCode(), principal);
+        oAuth2ServiceContext.addVerification(oAuth2Request.getCode(), authentication);
         return ResponseEntity.ok().build();
     }
 

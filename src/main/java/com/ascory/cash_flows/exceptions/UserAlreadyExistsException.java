@@ -1,4 +1,4 @@
-package com.ascory.authservice.exceptions;
+package com.ascory.cash_flows.exceptions;
 
 public class UserAlreadyExistsException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "User already exists.";

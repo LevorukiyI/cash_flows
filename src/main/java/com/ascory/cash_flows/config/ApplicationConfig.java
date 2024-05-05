@@ -1,13 +1,7 @@
-package com.ascory.authservice.config;
+package com.ascory.cash_flows.config;
 
-import com.ascory.authservice.auditing.ApplicationAuditAware;
-import com.ascory.authservice.models.CargoTariffCoefficients;
-import com.ascory.authservice.models.TariffCoefficients;
-import com.ascory.authservice.models.TransportTariffCoefficients;
-import com.ascory.authservice.models.TransportType;
-import com.ascory.authservice.repositories.TariffCoefficientsRepository;
-import com.ascory.authservice.repositories.TransportTariffCoefficientsRepository;
-import com.ascory.authservice.services.DefaultUserDetailsService;
+import com.ascory.cash_flows.auditing.ApplicationAuditAware;
+import com.ascory.cash_flows.services.DefaultUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +15,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -64,30 +56,6 @@ public class ApplicationConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
-    @Bean
-    public TariffCoefficients tariffCoefficients(
-            TariffCoefficientsRepository tariffCoefficientsRepository){
-
-
-
-
-        TariffCoefficients tariffCoefficients =
-                TariffCoefficients.builder()
-                        .dangerousCargoCoefficient(1.0)
-                        .specialCargoCoefficient(1.0)
-                        .plainTransportTypeCoefficient(1.0)
-                        .plainCargoMassCoefficient(1.0)
-                        .plainCargoVolumeCoefficient(1.0)
-                        .shipTransportTypeCoefficient(1.0)
-                        .shipCargoMassCoefficient(1.0)
-                        .shipCargoVolumeCoefficient(1.0)
-                        .truckTransportTypeCoefficient(1.0)
-                        .truckCargoMassCoefficient(1.0)
-                        .truckCargoVolumeCoefficient(1.0)
-                        .build();
-        tariffCoefficientsRepository.save(tariffCoefficients);
-        return tariffCoefficients;
     }
 
 }
