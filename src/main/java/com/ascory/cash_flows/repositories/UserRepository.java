@@ -10,8 +10,13 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByDiscordId(String discordId);
     Optional<User> getUserByDiscordId(String discordId);
-    User getUserById(Long id);
-    Optional<User> findByEmail(String email);
+
+    boolean existsByGithubId(String githubId);
+    Optional<User> getUserByGithubId(String githubId);
+
     boolean existsByEmail(String email);
+    Optional<User> findByEmail(String email);
+
+    User getUserById(Long id);
     Optional<User> findById(Long id);
 }

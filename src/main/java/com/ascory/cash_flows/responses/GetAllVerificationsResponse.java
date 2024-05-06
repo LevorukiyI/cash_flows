@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class GetAllVerificationsResponse {
     private String email;
     private String discordId;
+    private String githubId;
 }

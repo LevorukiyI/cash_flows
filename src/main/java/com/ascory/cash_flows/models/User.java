@@ -20,6 +20,9 @@ public class User implements UserDetails {
     @Column(name = "discord_id", unique = true)
     private String discordId;
 
+    @Column(name = "github_id", unique = true)
+    private String githubId;
+
     @Column(name = "email", unique = true)
     private String email;
 

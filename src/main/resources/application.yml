@@ -12,13 +12,6 @@ spring:
         format_sql: true
     database: mysql
     open-in-view: false
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            client-id: d462fb12f03ed6d0a382
-            client-secret: 910fc30f47f37433e34aa0bb2240b43d4b3686d9
   mail:
     host: connect.smtp.bz
     port: 587
@@ -44,6 +37,21 @@ application:
         authentication-redirect-url: http://127.0.0.1:5500/authenticationPages/discordAuthPage.html
         verification-redirect-url: http://127.0.0.1:5500/authenticationPages/discordAddVerificatonPage.html
         user-url: https://discord.com/api/v10/users/@me
+      github:
+        access-token-url: https://github.com/login/oauth/access_token
+        user-url: https://api.github.com/user
+        login:
+          client-id: d462fb12f03ed6d0a382
+          client-secret: b745219c5c07bc34e802b1225e3a2fcd13136979
+          redirect-url: http://127.0.0.1:5500/authenticationPages/githubAuthPage.html
+        register:
+          client-id: Ov23ctk0kM8yWRPCd2IO
+          client-secret: 50bf7a33e6e19ac2061c199cd05b26491a7de460
+          redirect-url: http://127.0.0.1:5500/authenticationPages/githubRegisterPage.html
+        verification:
+          client-id: Ov23lisxKq1raqpKWKnG
+          client-secret: aa443e54b4ee76b682234f74fce80affda629d23
+          redirect-url: http://127.0.0.1:5500/authenticationPages/githubAddVerificatonPage.html
     jwt:
       secret-key: 5eekxbfUrc9marV/33k0yzgFxcuIHwIJyQ/IUd7HOMA=
       access-token:

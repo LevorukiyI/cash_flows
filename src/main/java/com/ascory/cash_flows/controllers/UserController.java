@@ -16,4 +16,9 @@ public class UserController {
     public ResponseEntity<?> getAllVerifications(Authentication authentication){
         return ResponseEntity.ok(userService.getAllVerifications(authentication));
     }
+
+    @GetMapping("/get-role")
+    public ResponseEntity<?> getRole(Authentication authentication){
+        return userService.getRole(authentication);
+    }
 }
