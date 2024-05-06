@@ -66,4 +66,19 @@ public class TransactionsService {
                         .build();
         return ResponseEntity.ok(getAllTransactionsResponse);
     }
+
+    public ResponseEntity<GetTransactionResponse> getTransaction(Long transactionId){
+        TransactionEntity transactionEntity = transactionRepository.findById(transactionId).orElseThrow(
+                () -> new RuntimeException("transaction not found"));
+        return ResponseEntity.ok(GetTransactionResponse.builder()
+                .transactionId(transactionEntity.getId())
+                .amount(transactionEntity.getAmount())
+                .transactionDate(transactionEntity.getTransactionDate())
+                .transactionPerformerId(transactionEntity.getTransactionPerformer().getId())
+                .transactionName(transactionEntity.getTransactionName())
+                .transactionDescription(transactionEntity.getTransactionDescription())
+                .transactionCategory(transactionEntity.getTransactionCategory())
+                .build()
+        );
+    }
 }

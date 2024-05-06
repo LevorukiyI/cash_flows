@@ -26,4 +26,9 @@ public class TransactionController {
     public ResponseEntity<?> getAllTransactions(){
         return transactionsService.getAllTransactions();
     }
+
+    @GetMapping("/get-transaction")
+    public ResponseEntity<?> getTransaction(@RequestParam Long transactionId){
+        return transactionsService.getTransaction(transactionId);
+    }
 }
