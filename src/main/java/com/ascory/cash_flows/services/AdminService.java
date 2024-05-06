@@ -2,6 +2,7 @@ package com.ascory.cash_flows.services;
 
 import com.ascory.cash_flows.models.User;
 import com.ascory.cash_flows.repositories.JwtRefreshTokenRepository;
+import com.ascory.cash_flows.repositories.TransactionRepository;
 import com.ascory.cash_flows.repositories.UserRepository;
 import com.ascory.cash_flows.responses.GetUserResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminService {
     private final UserRepository userRepository;
+    private final TransactionRepository transactionRepository;
     private final JwtRefreshTokenRepository jwtRefreshTokenRepository;
 
     public ResponseEntity<?> getAllUsers(){
@@ -34,6 +36,7 @@ public class AdminService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("there is no user with such id"));
         jwtRefreshTokenRepository.deleteIfExistsByUser(user);
+        transactionRepository.deleteAllByTransactionPerformer(user);
         userRepository.delete(user);
     }
 }

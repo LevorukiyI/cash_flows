@@ -1,5 +1,6 @@
 package com.ascory.cash_flows.controllers;
 
+import com.ascory.cash_flows.requests.DeleteUserRequest;
 import com.ascory.cash_flows.services.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,8 @@ public class AdminController {
     }
 
     @PostMapping("/delete-user")
-    public ResponseEntity<?> deleteUser(@RequestParam Long userId){
-        adminService.deleteUser(userId);
+    public ResponseEntity<?> deleteUser(@RequestBody DeleteUserRequest deleteUserRequest){
+        adminService.deleteUser(deleteUserRequest.getId());
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }
