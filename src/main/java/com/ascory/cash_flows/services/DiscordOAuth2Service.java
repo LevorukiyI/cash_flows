@@ -141,4 +141,14 @@ public class DiscordOAuth2Service implements OAuth2ServiceStrategy{
     public void setOAuth2IdToUser(User user, String oAuth2Id) {
         user.setDiscordId(oAuth2Id);
     }
+
+    @Override
+    public boolean checkIsVerificationNotExists(User user) {
+        return user.getDiscordId() == null;
+    }
+
+    @Override
+    public void deleteVerification(User user) {
+        user.setDiscordId(null);
+    }
 }

@@ -7,6 +7,7 @@ import com.ascory.cash_flows.requests.VerifyEmailPassTokenRequest;
 import com.ascory.cash_flows.responses.AuthenticationResponse;
 import com.ascory.cash_flows.services.EmailPassAuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -43,12 +44,19 @@ class EmailPassAuthController{
             throw new AccessDeniedException("Access is denied. User is unauthenticated or did not provide a JWT token.");
         }
         emailPassAuthService.createEmailVerificationToken(emailPassRegisterRequestEntity, authentication);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @PostMapping("/verify-token")
     public ResponseEntity<?> verifyToken(
             @RequestBody VerifyEmailPassTokenRequest verifyEmailPassTokenRequest) {
         return ResponseEntity.ok(emailPassAuthService.verifyEmailPassToken(verifyEmailPassTokenRequest.getToken()));
+    }
+
+    @PostMapping("/delete-verification")
+    public ResponseEntity<?> deleteVerification(
+            Authentication authentication){
+        emailPassAuthService.deleteVerification(authentication);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

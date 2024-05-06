@@ -12,4 +12,6 @@ public interface OAuth2ServiceStrategy {
     boolean existsByOAuth2Id(String oAuth2Id);
     OAuth2ServiceName getOAuth2ServiceName();
     void setOAuth2IdToUser(User user, String oAuth2Id);
+    boolean checkIsVerificationNotExists(User user);
+    void deleteVerification(User user);
 }
