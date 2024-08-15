@@ -3,12 +3,11 @@ package com.ascory.cash_flows.services;
 import com.ascory.cash_flows.models.EmailPassVerificationTokenEntity;
 import com.ascory.cash_flows.repositories.EmailPassRegisterRequestRepository;
 import com.ascory.cash_flows.repositories.EmailPassVerificationTokenRepository;
-import com.ascory.cash_flows.repositories.UserRepository;
 import com.ascory.cash_flows.requests.EmailPassRegisterRequestEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.UUID;
 
 @Service
@@ -17,6 +16,9 @@ public class EmailVerificationTokenService {
     private final EmailSender emailSender;
     private final EmailPassVerificationTokenRepository verificationTokenRepository;
     private final EmailPassRegisterRequestRepository registerRequestRepository;
+
+    @Value("${application.security.email-pass.verify-token-url}")
+    private String emailPassVerifyTokenUrl;
 
     public EmailPassVerificationTokenEntity createToken(
             EmailPassRegisterRequestEntity registerRequestEntity,
@@ -55,7 +57,7 @@ public class EmailVerificationTokenService {
     public void sendVerificationEmail(String email, String token) {
         String subject = "Подтверждение электронной почты";
         //#TODO не забыть поменять ссылку
-        String body = "Для подтверждения электронной почты перейдите по ссылке: http://127.0.0.1:5500/authenticationPages/emailVerifyTokenPage.html?token=" + token;
+        String body = "Для подтверждения электронной почты перейдите по ссылке:" + emailPassVerifyTokenUrl +"?token=" + token;
         emailSender.sendEmail(email, subject, body);
     }
 }

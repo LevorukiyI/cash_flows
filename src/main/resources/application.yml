@@ -1,8 +1,4 @@
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/cash_flows_db
-    username: root
-    password: LevshaNumberOne1
   jpa:
     hibernate:
       ddl-auto: update
@@ -28,14 +24,16 @@ spring:
             enable: false
 application:
   security:
+    email-pass:
+      verify-token-url: http://127.0.0.1:8080/auth/email-pass/verify-token
     oauth2:
       discord:
         client-id: 1194987139860017163
         client-secret: EubgOnWjYksaWWPDmAnbdWXcOnblevAq
         token-url: https://discord.com/api/v10/oauth2/token
-        register-redirect-url: http://127.0.0.1:5500/authenticationPages/discordRegisterPage.html
-        authentication-redirect-url: http://127.0.0.1:5500/authenticationPages/discordAuthPage.html
-        verification-redirect-url: http://127.0.0.1:5500/authenticationPages/discordAddVerificatonPage.html
+        authentication-redirect-url: http://127.0.0.1:8080/auth/discord/authenticate
+        register-redirect-url: http://127.0.0.1:8080/auth/discord/register
+        verification-redirect-url: http://127.0.0.1:5500/authenticationPages/verifications.html
         user-url: https://discord.com/api/v10/users/@me
       github:
         access-token-url: https://github.com/login/oauth/access_token
@@ -43,15 +41,15 @@ application:
         login:
           client-id: d462fb12f03ed6d0a382
           client-secret: b745219c5c07bc34e802b1225e3a2fcd13136979
-          redirect-url: http://127.0.0.1:5500/authenticationPages/githubAuthPage.html
+          redirect-url: http://127.0.0.1:8080/auth/github/authenticate
         register:
           client-id: Ov23ctk0kM8yWRPCd2IO
           client-secret: 50bf7a33e6e19ac2061c199cd05b26491a7de460
-          redirect-url: http://127.0.0.1:5500/authenticationPages/githubRegisterPage.html
+          redirect-url: http://127.0.0.1:8080/auth/github/register
         verification:
           client-id: Ov23lisxKq1raqpKWKnG
           client-secret: aa443e54b4ee76b682234f74fce80affda629d23
-          redirect-url: http://127.0.0.1:5500/authenticationPages/githubAddVerificatonPage.html
+          redirect-url: http://127.0.0.1:5500/authenticationPages/verifications.html
     jwt:
       secret-key: 5eekxbfUrc9marV/33k0yzgFxcuIHwIJyQ/IUd7HOMA=
       access-token:

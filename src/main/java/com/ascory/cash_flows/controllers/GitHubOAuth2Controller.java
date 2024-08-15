@@ -3,15 +3,13 @@ package com.ascory.cash_flows.controllers;
 import com.ascory.cash_flows.requests.OAuth2Request;
 import com.ascory.cash_flows.responses.AuthenticationResponse;
 import com.ascory.cash_flows.services.GitHubOAuth2Service;
+import com.ascory.cash_flows.services.AuthenticationRedirectResponsesAdapter;
 import com.ascory.cash_flows.services.OAuth2ServiceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth/github")
@@ -19,20 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 public class GitHubOAuth2Controller implements OAuth2Controller{
     private final OAuth2ServiceContext oAuth2ServiceContext;
     private final GitHubOAuth2Service gitHubOAuth2Service;
+    private final AuthenticationRedirectResponsesAdapter authenticationRedirectResponsesAdapter;
 
-    @PostMapping("/authenticate")
+    @GetMapping("/authenticate")
     @Override
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody OAuth2Request oAuth2Request) {
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestParam("code") String code) {
         // Реализация метода authenticate
         oAuth2ServiceContext.setOAuth2ServiceStrategy(gitHubOAuth2Service);
-        return ResponseEntity.ok(oAuth2ServiceContext.authenticate(oAuth2Request.getCode()));
+        return authenticationRedirectResponsesAdapter
+                .getMainPageRedirectResponseEntity(
+                        oAuth2ServiceContext.authenticate(code)
+                );
     }
 
-    @PostMapping("/register")
+    @GetMapping("/register")
     @Override
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody OAuth2Request oAuth2Request) {
+    public ResponseEntity<AuthenticationResponse> register(@RequestParam("code") String code) {
         oAuth2ServiceContext.setOAuth2ServiceStrategy(gitHubOAuth2Service);
-        return ResponseEntity.ok(oAuth2ServiceContext.register(oAuth2Request.getCode()));
+        return authenticationRedirectResponsesAdapter
+                .getMainPageRedirectResponseEntity(
+                        oAuth2ServiceContext.register(code)
+                );
     }
 
     @PostMapping("/add-verification")

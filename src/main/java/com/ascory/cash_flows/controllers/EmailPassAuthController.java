@@ -1,20 +1,16 @@
 package com.ascory.cash_flows.controllers;
 
-
 import com.ascory.cash_flows.requests.EmailPassAuthenticateRequest;
 import com.ascory.cash_flows.requests.EmailPassRegisterRequestEntity;
-import com.ascory.cash_flows.requests.VerifyEmailPassTokenRequest;
 import com.ascory.cash_flows.responses.AuthenticationResponse;
+import com.ascory.cash_flows.services.AuthenticationRedirectResponsesAdapter;
 import com.ascory.cash_flows.services.EmailPassAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth/email-pass")
@@ -22,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 class EmailPassAuthController{
 
     private final EmailPassAuthService emailPassAuthService;
+    private final AuthenticationRedirectResponsesAdapter authenticationRedirectResponsesAdapter;
+
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
@@ -47,10 +45,13 @@ class EmailPassAuthController{
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/verify-token")
+    @GetMapping("/verify-token")
     public ResponseEntity<?> verifyToken(
-            @RequestBody VerifyEmailPassTokenRequest verifyEmailPassTokenRequest) {
-        return ResponseEntity.ok(emailPassAuthService.verifyEmailPassToken(verifyEmailPassTokenRequest.getToken()));
+            @RequestParam("token") String token) {
+        return authenticationRedirectResponsesAdapter
+                .getMainPageRedirectResponseEntity(
+                        emailPassAuthService.verifyEmailPassToken(token)
+                );
     }
 
     @PostMapping("/delete-verification")

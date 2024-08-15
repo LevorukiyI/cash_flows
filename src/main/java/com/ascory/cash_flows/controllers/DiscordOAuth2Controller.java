@@ -3,6 +3,7 @@ package com.ascory.cash_flows.controllers;
 import com.ascory.cash_flows.requests.OAuth2Request;
 import com.ascory.cash_flows.responses.AuthenticationResponse;
 import com.ascory.cash_flows.services.DiscordOAuth2Service;
+import com.ascory.cash_flows.services.AuthenticationRedirectResponsesAdapter;
 import com.ascory.cash_flows.services.OAuth2ServiceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,20 +18,26 @@ public class DiscordOAuth2Controller implements OAuth2Controller{
 
     private final OAuth2ServiceContext oAuth2ServiceContext;
     private final DiscordOAuth2Service discordOAuth2Service;
+    private final AuthenticationRedirectResponsesAdapter authenticationRedirectResponsesAdapter;
 
-    @PostMapping("/authenticate")
+    @GetMapping("/authenticate")
     @Override
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody OAuth2Request oAuth2Request) {
-        // Реализация метода authenticate
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestParam("code") String code) {
         oAuth2ServiceContext.setOAuth2ServiceStrategy(discordOAuth2Service);
-        return ResponseEntity.ok(oAuth2ServiceContext.authenticate(oAuth2Request.getCode()));
+        return authenticationRedirectResponsesAdapter
+                .getMainPageRedirectResponseEntity(
+                        oAuth2ServiceContext.authenticate(code)
+                );
     }
 
-    @PostMapping("/register")
+    @GetMapping("/register")
     @Override
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody OAuth2Request oAuth2Request) {
+    public ResponseEntity<AuthenticationResponse> register(@RequestParam("code") String code) {
         oAuth2ServiceContext.setOAuth2ServiceStrategy(discordOAuth2Service);
-        return ResponseEntity.ok(oAuth2ServiceContext.register(oAuth2Request.getCode()));
+        return authenticationRedirectResponsesAdapter
+                .getMainPageRedirectResponseEntity(
+                        oAuth2ServiceContext.register(code)
+                );
     }
 
     @PostMapping("/add-verification")
