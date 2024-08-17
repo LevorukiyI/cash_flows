@@ -29,6 +29,7 @@ public class UserService {
                 .discordId(user.getDiscordId())
                 .email(user.getEmail())
                 .githubId(user.getGithubId())
+                .googleId(user.getGoogleId())
                 .build();
     }
 

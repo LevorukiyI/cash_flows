@@ -20,7 +20,6 @@ class EmailPassAuthController{
     private final EmailPassAuthService emailPassAuthService;
     private final AuthenticationRedirectResponsesAdapter authenticationRedirectResponsesAdapter;
 
-
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody EmailPassAuthenticateRequest emailPassAuthenticateRequest) {

@@ -50,6 +50,14 @@ application:
           client-id: Ov23lisxKq1raqpKWKnG
           client-secret: aa443e54b4ee76b682234f74fce80affda629d23
           redirect-url: http://127.0.0.1:5500/authenticationPages/verifications.html
+      google:
+        client-id: 541289081161-b65piik03lsu1saj4592t6uci2sfldtj.apps.googleusercontent.com
+        client-secret: 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
+        token-url: https://oauth2.googleapis.com/token
+        authentication-redirect-url: http://127.0.0.1:8080/auth/google/authenticate
+        register-redirect-url: http://127.0.0.1:8080/auth/google/register
+        verification-redirect-url: http://127.0.0.1:5500/authenticationPages/verifications.html
+        user-url: https://www.googleapis.com/oauth2/v3/userinfo
     jwt:
       secret-key: 5eekxbfUrc9marV/33k0yzgFxcuIHwIJyQ/IUd7HOMA=
       access-token:
